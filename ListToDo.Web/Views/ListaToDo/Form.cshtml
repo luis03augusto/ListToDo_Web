@@ -1,0 +1,45 @@
+﻿@model ListToDo.Web.Models.ListToDo
+@{
+    ViewBag.Title = "Form";
+}
+
+<section class="form-criar-tarefa">
+    @using (Html.BeginForm("Form", "ListaToDo", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.ValidationMessage("Intem Lista Inválido")
+
+        <div class="form-group">
+            <div class="col-md-4 inputGroupContainer">
+                <h2 class="text-center">Criar Nova Tarefa</h2>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Nome:</label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-check"></i></span>
+                    @Html.TextBoxFor(f => f.NomeItem, new { @class = "form-control", placeholder = "Nome Item" })
+                    @Html.ValidationMessageFor(f => f.NomeItem)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Descrição:</label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-edit"></i></span>
+                    @Html.TextAreaFor(f => f.DescricaoItem, new { @class = "form-control", placeholder = "Descrição do Item" })
+                    @Html.ValidationMessageFor(f => f.DescricaoItem)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label"></label>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary">Criar Tarefa <span class="glyphicon glyphicon-floppy-disk"></span></button>
+            </div>
+        </div>
+    }
+</section>
