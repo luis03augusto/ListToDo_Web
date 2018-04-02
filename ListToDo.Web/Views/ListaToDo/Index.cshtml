@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="col-lg-6">
-            <h2 class="text-center">Itens Pendentes</h2>            
+            <h2 class="text-center">Itens Pendentes</h2>
             @if (Model.ListToDo_Pendetens.Count >= 1)
             {
                 foreach (var item in Model.ListToDo_Pendetens)
@@ -30,9 +30,7 @@
                 foreach (var item in Model.ListToDo_Concluidas)
                 {
                     <div class="col-lg-3 card-concluido">
-                        @Html.Raw(item.NomeItem)
-                        @Html.Raw(item.DescricaoItem)
-                        @Html.Raw(item.DataConclusao)
+                        @Html.ActionLink(item.NomeItem, "FindOne", new { id = item.Id }, new { @class = "" })
                     </div>
                 }
             }

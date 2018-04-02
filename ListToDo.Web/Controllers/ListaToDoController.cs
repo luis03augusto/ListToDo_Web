@@ -54,13 +54,30 @@ namespace ListToDo.Web.Controllers
                 return RedirectToAction("Index");
             }
         }
+        public ActionResult Editar(int id)
+        {
+            Models.ListToDo listToDo = new Models.ListToDo();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(BaseUrl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.GetAsync("api/ListToDo/" + id).Result;
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    return View(Res.Content.ReadAsAsync<Models.ListToDo>().Result);
+                }
+                return View(listToDo);
+            }
+        }
         public ActionResult Form()
         {
             return View();
         }
 
         [HttpPost]
-        public JsonResult Form(Models.ListToDo listToDo)
+        public ActionResult Form(Models.ListToDo listToDo)
         {
             using (var client = new HttpClient())
             {
@@ -68,7 +85,7 @@ namespace ListToDo.Web.Controllers
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res =  client.PostAsJsonAsync("api/ListToDo",listToDo).Result;
-                return Json(Res.StatusCode);
+                return RedirectToAction("Index");
             }            
         }
         public ActionResult FindOne(int id)
